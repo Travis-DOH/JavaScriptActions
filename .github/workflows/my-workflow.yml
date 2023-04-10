@@ -13,6 +13,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: hilarity-ensues
         uses: ./.github/actions/joke-action
+        id: joke
 
   issue-joke:
     name: Comment
@@ -20,9 +21,11 @@ jobs:
     permissions:
       issues: write
     steps:
-      - name: Automatic Comment
+      - name: issue-joke
         uses: peter-evans/create-or-update-comment@v2
+        env:
+          NEW_JOKE: ${{ steps.hilarity-ensues.outputs.stdout }}
         with:        
           issue-number: ${{ github.event.issue.number }}
           body: |
-            Thanks for labelling an issue! We have received it and will follow up with you soon.        
+            $NEW_JOKE
