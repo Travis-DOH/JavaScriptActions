@@ -23,10 +23,9 @@ jobs:
     steps:
       - name: issue-joke
         uses: peter-evans/create-or-update-comment@v2
-        needs: joke-action
         env:
           NEW_JOKE: ${{ steps.hilarity-ensues.outputs.stdout }}
         with:     
           issue-number: ${{ github.event.issue.number }}
           body: |
-            ${{ NEW_JOKE }}
+            $NEW_JOKE
