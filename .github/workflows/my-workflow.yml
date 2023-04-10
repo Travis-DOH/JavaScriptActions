@@ -10,8 +10,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: hilarity-ensues
       - uses: actions/checkout@v3
+      - name: hilarity-ensues
         uses: ./.github/actions/joke-action
 
   issue-joke:
