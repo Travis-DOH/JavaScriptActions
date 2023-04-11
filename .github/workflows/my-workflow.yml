@@ -1,11 +1,16 @@
 name: JS Actions
 
 on:
-  issues:
-    types: [labeled]
+  # Run when an issue is labeled
+  #issues:
+  #  types: [labeled]
+  # Run when a PR is opened
+  pull-request:
+    types: [opened]
 
 jobs:
   joke-action:
+    # Actions are disabled on the original template
     if: ${{ !github.event.repository.is_template }}
     runs-on: ubuntu-latest
 
@@ -16,16 +21,19 @@ jobs:
         id: joke
 
   issue-joke:
-    name: Comment
+    name: joke-comment
     runs-on: ubuntu-latest
     permissions:
-      issues: write
+      # Give issue write access
+      #issues: write
+      # Give PR write access
+      pull-requests: write
     steps:
       - name: issue-joke
-        uses: peter-evans/create-or-update-comment@v2
+      - run: gh pr comment $PR_URL --body $NEW_JOKE
         env:
           NEW_JOKE: ${{ steps.hilarity-ensues.outputs.stdout }}
-        with:     
-          issue-number: ${{ github.event.issue.number }}
-          body: |
-            run: echo $NEW_JOKE
+        #with:     
+          #issue-number: ${{ github.event.issue.number }}
+          #body: |
+            #run: echo $NEW_JOKE
