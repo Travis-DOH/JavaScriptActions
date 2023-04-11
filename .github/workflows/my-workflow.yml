@@ -5,7 +5,7 @@ on:
   #issues:
   #  types: [labeled]
   # Run when a PR is opened
-  pull-request:
+  pull_request:
     types: [opened]
 
 jobs:
