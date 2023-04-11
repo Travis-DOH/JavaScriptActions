@@ -7,7 +7,8 @@ on:
   # Run when a PR is opened
   pull_request:
     types: [opened]
-
+permissions:
+  pull-requests: write
 jobs:
   joke-action:
     # Actions are disabled on the original template
@@ -20,4 +21,5 @@ jobs:
         uses: ./.github/actions/joke-action       
       - run:  gh pr comment $PR_URL --body INPUT_{"joke-output"}
         env:
+          #GH_TOKEN: ${{ github.token }}
           PR_URL: ${{ github.event.pull_request.html_url }}     
