@@ -20,6 +20,5 @@ jobs:
         uses: ./.github/actions/joke-action       
       - run:  gh pr comment $PR_URL --body "$NEW_JOKE"
         env:
-          BODY: ${{ github.event.comment.body }}
           PR_URL: ${{ github.event.pull_request.html_url }}
           NEW_JOKE: ${{ steps.hilarity-ensues.outputs.stdout }}       
